@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Shopping Discount</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .container {
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+        }
+        button {
+            padding: 10px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Shopping Discount & Shipping</h2>
+        <input type="number" id="orderAmount" placeholder="Enter Order Amount">
+        <button onclick="calculateAmount()">Calculate</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        function calculateFinalAmount(orderAmount) {
+            let discount = 0;
+            let shippingCost = 0;
+            
+            if (orderAmount > 1000) {
+                discount = 0.20;
+            } else if (orderAmount >= 500) {
+                discount = 0.10;
+            }
+            
+            let discountedAmount = orderAmount - (orderAmount * discount);
+            
+            if (orderAmount < 50) {
+                shippingCost = 10;
+            }
+            
+            return discountedAmount + shippingCost;
+        }
+
+        function calculateAmount() {
+            let orderAmount = parseFloat(document.getElementById("orderAmount").value);
+            if (isNaN(orderAmount) || orderAmount <= 0) {
+                document.getElementById("message").innerText = "Please enter a valid order amount.";
+                return;
+            }
+            let finalAmount = calculateFinalAmount(orderAmount);
+            document.getElementById("message").innerText = `Final Payable Amount: $${finalAmount.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>

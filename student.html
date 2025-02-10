@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grading System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .container {
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+        }
+        button {
+            padding: 10px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Student Grading System</h2>
+        <input type="number" id="marks" placeholder="Enter Marks">
+        <input type="number" id="attendance" placeholder="Enter Attendance %">
+        <button onclick="calculateGrade()">Calculate Grade</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        function calculateGrade(marks, attendance) {
+            if (attendance > 90) {
+                marks += 5;
+            }
+            
+            if (marks >= 90) return "A";
+            if (marks >= 80) return "B";
+            if (marks >= 70) return "C";
+            if (marks >= 60) return "D";
+            return "F";
+        }
+
+        function calculateGradeHandler() {
+            let marks = parseFloat(document.getElementById("marks").value);
+            let attendance = parseFloat(document.getElementById("attendance").value);
+            
+            if (isNaN(marks) || isNaN(attendance) || marks < 0 || marks > 100 || attendance < 0 || attendance > 100) {
+                document.getElementById("message").innerText = "Please enter valid marks and attendance.";
+                return;
+            }
+            
+            let grade = calculateGrade(marks, attendance);
+            document.getElementById("message").innerText = `Final Grade: ${grade}`;
+        }
+    </script>
+</body>
+</html>

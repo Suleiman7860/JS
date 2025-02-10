@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM Withdrawal System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .container {
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+        }
+        button {
+            padding: 10px;
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>ATM Withdrawal</h2>
+        <input type="number" id="pin" placeholder="Enter PIN">
+        <input type="number" id="amount" placeholder="Enter Amount">
+        <button onclick="withdrawMoney()">Withdraw</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        let balance = 5000;
+        let pin = 1234;
+
+        function atmWithdrawal(balance, amount, pin, enteredPin) {
+            if (enteredPin !== pin) {
+                return "Incorrect PIN";
+            }
+            if (amount > balance) {
+                return "Insufficient Funds";
+            }
+            if (amount % 100 !== 0) {
+                return "Enter amount in multiples of 100";
+            }
+            balance -= amount;
+            return `Withdrawal successful! New balance: $${balance}`;
+        }
+
+        function withdrawMoney() {
+            let enteredPin = parseInt(document.getElementById("pin").value);
+            let amount = parseInt(document.getElementById("amount").value);
+            let message = atmWithdrawal(balance, amount, pin, enteredPin);
+            document.getElementById("message").innerText = message;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Coupon Redemption</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .container {
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input, select, button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+        }
+        button {
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>E-commerce Coupon Redemption</h2>
+        <input type="number" id="orderAmount" placeholder="Enter Order Amount">
+        <select id="couponCode">
+            <option value="">No Coupon</option>
+            <option value="DISCOUNT10">DISCOUNT10 - 10% off orders above $500</option>
+            <option value="FREESHIP">FREESHIP - Free shipping for orders above $200</option>
+        </select>
+        <button onclick="calculateFinalPrice()">Apply Coupon</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        function applyCoupon(orderAmount, couponCode) {
+            let discount = 0;
+            let shippingFee = 10;
+            
+            if (couponCode === "DISCOUNT10" && orderAmount > 500) {
+                discount = orderAmount * 0.10;
+            } else if (couponCode === "FREESHIP" && orderAmount > 200) {
+                shippingFee = 0;
+            }
+            
+            return orderAmount - discount + shippingFee;
+        }
+
+        function calculateFinalPrice() {
+            let orderAmount = parseFloat(document.getElementById("orderAmount").value);
+            let couponCode = document.getElementById("couponCode").value;
+            
+            if (isNaN(orderAmount) || orderAmount <= 0) {
+                document.getElementById("message").innerText = "Please enter a valid order amount.";
+                return;
+            }
+            
+            let finalPrice = applyCoupon(orderAmount, couponCode);
+            document.getElementById("message").innerText = `Final Price: $${finalPrice.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Ticket Booking</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      font-size: 16px;
+      margin-top: 10px;
+      display: block;
+    }
+    select, input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Flight Ticket Booking</h1>
+  <form id="bookingForm">
+    <label for="classType">Select Class Type:</label>
+    <select id="classType">
+      <option value="economy">Economy</option>
+      <option value="business">Business</option>
+      <option value="first">First</option>
+    </select>
+
+    <label for="luggageWeight">Enter Luggage Weight (in kg):</label>
+    <input type="number" id="luggageWeight" required>
+
+    <label for="isStudent">Are you a Student?</label>
+    <select id="isStudent">
+      <option value="no">No</option>
+      <option value="yes">Yes</option>
+    </select>
+
+    <label for="isSenior">Are you a Senior Citizen (above 60 years old)?</label>
+    <select id="isSenior">
+      <option value="no">No</option>
+      <option value="yes">Yes</option>
+    </select>
+
+    <button type="button" onclick="calculateFlightFare()">Calculate Fare</button>
+  </form>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+  function calculateFlightFare() {
+    const baseFare = 300;
+    let classType = document.getElementById("classType").value;
+    let luggageWeight = parseFloat(document.getElementById("luggageWeight").value);
+    let isStudent = document.getElementById("isStudent").value;
+    let isSenior = document.getElementById("isSenior").value;
+
+    let additionalCharge = 0;
+    let luggageCharge = 0;
+    let discount = 0;
+
+    // Class Type Charges
+    if (classType === "business") {
+      additionalCharge = 200;
+    } else if (classType === "first") {
+      additionalCharge = 500;
+    }
+
+    // Luggage Charges (over 20kg)
+    if (luggageWeight > 20) {
+      let excessLuggage = luggageWeight - 20;
+      luggageCharge = Math.ceil(excessLuggage / 10) * 50; // $50 per 10kg extra
+    }
+
+    // Discount Calculation
+    if (isStudent === "yes") {
+      discount = 0.15; // 15% off for students
+    } else if (isSenior === "yes") {
+      discount = 0.10; // 10% off for seniors
+    }
+
+    // Final Calculation
+    let totalFare = baseFare + additionalCharge + luggageCharge;
+    totalFare -= totalFare * discount; // Apply discount
+
+    // Display the result
+    document.getElementById("result").innerText = `Total Fare: $${totalFare.toFixed(2)}`;
+  }
+</script>
+
+</body>
+</html>

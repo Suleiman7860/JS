@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electricity Bill Calculation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      font-size: 16px;
+      margin-top: 10px;
+      display: block;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Electricity Bill Calculation</h1>
+  <form id="billForm">
+    <label for="units">Enter Consumption (in units):</label>
+    <input type="number" id="units" required>
+
+    <label for="timeOfDay">Enter Time of Day (24-hour format):</label>
+    <input type="number" id="timeOfDay" required>
+
+    <button type="button" onclick="calculateElectricityBill()">Calculate Bill</button>
+  </form>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+  function calculateElectricityBill() {
+    const units = parseFloat(document.getElementById("units").value);
+    const timeOfDay = parseInt(document.getElementById("timeOfDay").value);
+
+    let rate = 0;
+    let totalBill = 0;
+
+    // Determine the rate based on the units consumed
+    if (units < 100) {
+      rate = 5; // Normal hours rate
+    } else if (units >= 100 && units <= 300) {
+      rate = 4; // Normal hours rate
+    } else {
+      rate = 3; // Normal hours rate
+    }
+
+    // Apply peak hours (8 PM - 8 AM) extra 10% charge
+    if (timeOfDay >= 20 || timeOfDay < 8) {
+      totalBill = units * rate * 1.1; // 10% extra charge
+    } else {
+      totalBill = units * rate;
+    }
+
+    // Display the result
+    document.getElementById("result").innerText = `Total Bill: $${totalBill.toFixed(2)}`;
+  }
+</script>
+
+</body>
+</html>

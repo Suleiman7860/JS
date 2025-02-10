@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Ticket Pricing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .container {
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+        }
+        button {
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Movie Ticket Pricing</h2>
+        <input type="number" id="age" placeholder="Enter Age">
+        <input type="time" id="showTime" placeholder="Enter Show Time">
+        <button onclick="calculatePriceHandler()">Calculate Ticket Price</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        function calculateTicketPrice(age, showTime) {
+            let standardPrice = 12;
+            let discount = 0;
+            let time = parseInt(showTime.split(":")[0]);
+            
+            if (time < 17) {
+                discount = 0.20;
+            }
+            if (age > 60) {
+                discount = 0.30;
+            } else if (age < 12) {
+                discount = 0.40;
+            }
+            
+            return standardPrice - (standardPrice * discount);
+        }
+
+        function calculatePriceHandler() {
+            let age = parseInt(document.getElementById("age").value);
+            let showTime = document.getElementById("showTime").value;
+            
+            if (isNaN(age) || !showTime) {
+                document.getElementById("message").innerText = "Please enter valid age and show time.";
+                return;
+            }
+            
+            let finalPrice = calculateTicketPrice(age, showTime);
+            document.getElementById("message").innerText = `Final Ticket Price: $${finalPrice.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>

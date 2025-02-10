@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gym Membership Plan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      font-size: 16px;
+      margin-top: 10px;
+      display: block;
+    }
+    select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Choose Your Gym Membership Plan</h1>
+  <form id="membershipForm">
+    <label for="trainer">Do you want a Personal Trainer?</label>
+    <select id="trainer">
+      <option value="no">No</option>
+      <option value="yes">Yes</option>
+    </select>
+
+    <label for="dietPlan">Do you want a Diet Plan?</label>
+    <select id="dietPlan">
+      <option value="no">No</option>
+      <option value="yes">Yes</option>
+    </select>
+
+    <button type="button" onclick="choosePlan()">Get Best Plan</button>
+  </form>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+  function choosePlan() {
+    const wantsTrainer = document.getElementById("trainer").value;
+    const wantsDietPlan = document.getElementById("dietPlan").value;
+
+    let planType = "";
+
+    if (wantsTrainer === "yes" && wantsDietPlan === "yes") {
+      planType = "VIP ($80/month) → Gym + Trainer + Diet Plan";
+    } else if (wantsTrainer === "yes") {
+      planType = "Premium ($50/month) → Gym + Personal Trainer";
+    } else if (wantsDietPlan === "yes") {
+      planType = "VIP ($80/month) → Gym + Diet Plan";
+    } else {
+      planType = "Basic ($20/month) → Gym Access Only";
+    }
+
+    document.getElementById("result").innerText = `Recommended Plan: ${planType}`;
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Traffic Light System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .container {
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        select, button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+        }
+        button {
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Smart Traffic Light System</h2>
+        <label for="trafficDensity">Select Traffic Density:</label>
+        <select id="trafficDensity">
+            <option value="Heavy Traffic">Heavy Traffic</option>
+            <option value="Moderate Traffic">Moderate Traffic</option>
+            <option value="Light Traffic">Light Traffic</option>
+        </select>
+        <button onclick="controlTrafficLight()">Get Green Light Duration</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        function trafficLightControl(density) {
+            if (density === "Heavy Traffic") return 60;
+            if (density === "Moderate Traffic") return 40;
+            if (density === "Light Traffic") return 20;
+            return "Invalid input";
+        }
+
+        function controlTrafficLight() {
+            let density = document.getElementById("trafficDensity").value;
+            let duration = trafficLightControl(density);
+            document.getElementById("message").innerText = `Green Light Duration: ${duration} seconds`;
+        }
+    </script>
+</body>
+</html>
